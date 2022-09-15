@@ -10,6 +10,7 @@
 
 from chrisapp.base import ChrisApp
 
+import json
 
 Gstr_title = r"""
    _                              _   _           
@@ -121,7 +122,22 @@ class Jpegoptim(ChrisApp):
         Define the CLI arguments accepted by this plugin app.
         Use self.add_argument to specify a new app argument.
         """
-        self.add_argument("--max", type=int, help='Maximum image quality, valid values are 0-100', dest='maxquality', optional=True, default=100)
+        # self.add_argument("--max", type=int, help='Maximum image quality, valid values are 0-100', dest='maxquality', optional=True, default=100)
+
+        with open('flags.json') as fd:
+            flags = json.load(fd)
+
+        for f,v in flags.items():
+            helpmsg = v['help'].replace("%", "")
+            flag = "--"+f
+            # if v['type'] != 'bool':
+            #     self.add_argument(flag, type=eval(v['type']), help=v['help'], dest=f, optional=True, default=v['default'])
+            if v['type'] == 'int':
+                self.add_argument(flag, type=int,  help=helpmsg, dest=f, optional=True, default=v['default'])
+            elif v['type'] == 'str':
+                self.add_argument(flag, type=str,  help=helpmsg, dest=f, optional=True, default=v['default'])
+            elif v['type'] == 'bool':
+                self.add_argument(flag, type=bool, help=helpmsg, dest=f, optional=True, default=v['default'], action=v['action'])
 
     def run(self, options):
         """
