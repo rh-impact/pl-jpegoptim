@@ -7,7 +7,7 @@
     },
     "max": {
         "type": "int",
-        "default": 999,
+        "default": 100,
         "help": "set maximum image quality factor (disables lossless optimization mode, which is by default on) Valid quality values: 0 - 100",
         "dest": "max"
     },
@@ -18,16 +18,10 @@
         "dest": "noaction"
     },
     "size": {
-        "type": "int",
-        "default": 999,
+        "type": "str",
+        "default": "99%",
         "help": "Try to optimize file to given size (disables lossless optimization mode). Target size is specified either in kilo bytes (1 - n) or as percentage (1% - 99%)",
         "dest": "size"
-    },
-    "threshold": {
-        "type": "int",
-        "default": 999,
-        "help": "keep old file if the gain is below a threshold (%)",
-        "dest": "threshold"
     },
     "csv": {
         "type": "bool",
