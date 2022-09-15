@@ -13,7 +13,7 @@ import subprocess
 import re
 import json
 
-ignore_flags = ['dest', 'stdout', 'stdin', 'overwrite', 'help']
+ignore_flags = ['dest', 'stdout', 'stdin', 'overwrite', 'help', 'threshold']
 
 def main():
     cmd = ('jpegoptim', '--help')
