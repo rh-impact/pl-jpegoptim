@@ -1,3 +1,4 @@
+#! /bin/env python
 # 
 # prepare_flags.py: Utility to create the list of flags supported by target progrem (jpegoptim in this case).
 #
@@ -9,13 +10,14 @@
 #
 #  
 
+import argparse
 import subprocess
 import re
 import json
 
 ignore_flags = ['dest', 'stdout', 'stdin', 'overwrite', 'help', 'threshold', 'version']
 
-def main():
+def main(args):
     cmd = ('jpegoptim', '--help')
     cp = subprocess.run(cmd, capture_output=True, text=True)
     # lines = cp.stderr.split('\n')
@@ -38,11 +40,16 @@ def main():
             values['dest'] = key
             flags[key] = values
 
-    # for f,h in flags.items():
-    #     print(f, ':', h)
-
-    with open('flags.json', 'w') as fp:
-        json.dump(flags, fp, indent=4)
+    if args.doc:
+        for f,v in flags.items():
+            print('    [--{}]'.format(f))
+            print('    {}'.format(v['help']))
+    else:
+        with open('flags.json', 'w') as fp:
+            json.dump(flags, fp, indent=4)
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--doc", action='store_true', help="Generate documentation in format appropiate to add to README.rst")
+    args = parser.parse_args()
+    main(args)
