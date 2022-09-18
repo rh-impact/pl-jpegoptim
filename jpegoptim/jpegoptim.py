@@ -8,9 +8,12 @@
 #                        dev@babyMRI.org
 #
 
+import cmd
 from chrisapp.base import ChrisApp
 
 import json
+import os
+import subprocess
 
 Gstr_title = r"""
    _                              _   _           
@@ -145,7 +148,22 @@ class Jpegoptim(ChrisApp):
         """
         print(Gstr_title)
         print('Version: %s' % self.get_version())
-        print(options.maxquality)
+        print("Optimizing all JPEGs in %s; resulting image can be found in %s" % (options.inputdir, options.outputdir))
+
+        cmdline = ['/usr/bin/jpegoptim', "--dest={}".format(options.outputdir)]
+        for k, v in options.__dict__.items():
+
+            # Add option to command line if it is not default
+            if (k == 'max' and v != 100) or (k == 'size' and v != '100%'):
+                option = "--{}={}".format(k, v)
+                cmdline.append(option)
+            elif isinstance(v, bool) and v:
+                option = "--{}".format(k)
+                cmdline.append(option)
+
+        for  image in os.listdir(options.inputdir):
+            image_fullpath = os.path.join(options.inputdir, image)
+            subprocess.run(cmdline + [image_fullpath], check=True)
 
     def show_man_page(self):
         """
