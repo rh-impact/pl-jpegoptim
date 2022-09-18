@@ -191,15 +191,21 @@ Examples
 
 Reduce input images to images half the size:
 
-.. code:: docker run -v $INPUTDIR:/input -v $OUTPUTDIR:/outdir --rm fnndsc/pl-jpegoptim --size=50% /indir /outdir
+.. code:: bash 
+    
+    docker run -v $INPUTDIR:/input -v $OUTPUTDIR:/outdir --rm fnndsc/pl-jpegoptim --size=50% /indir /outdir
 
 Remove ALL metadata from input images:
 
-.. code:: docker run -v $INPUTDIR:/input -v $OUTPUTDIR:/outdir --rm fnndsc/pl-jpegoptim --strip-all /indir /outdir
+.. code:: bash 
+    
+    docker run -v $INPUTDIR:/input -v $OUTPUTDIR:/outdir --rm fnndsc/pl-jpegoptim --strip-all /indir /outdir
 
 Remove IPTC metadata from input images:
 
-.. code:: docker run -v $INPUTDIR:/input -v $OUTPUTDIR:/outdir --rm fnndsc/pl-jpegoptim --strip-iptc /indir /outdir
+.. code:: bash 
+    
+    docker run -v $INPUTDIR:/input -v $OUTPUTDIR:/outdir --rm fnndsc/pl-jpegoptim --strip-iptc /indir /outdir
 
 .. image:: https://raw.githubusercontent.com/FNNDSC/cookiecutter-chrisapp/master/doc/assets/badge/light.png
     :target: https://chrisstor
