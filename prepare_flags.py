@@ -1,3 +1,4 @@
+#! /bin/env python
 # 
 # prepare_flags.py: Utility to create the list of flags supported by target progrem (jpegoptim in this case).
 #
