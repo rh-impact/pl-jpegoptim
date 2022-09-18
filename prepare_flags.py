@@ -1,13 +1,6 @@
 #! /bin/env python
 # 
 # prepare_flags.py: Utility to create the list of flags supported by target progrem (jpegoptim in this case).
-#
-# Usage: invoke this program PRIOR to building container image, edit the result and then build container image
-# 
-# Note: The resulting file (flags.json) needs to be manually tuned to properly fit the target program; in particular, defaults need to be set
-# This utility could be extended to fully automate the process of creating the flags but the effort to create a generic tool that properly 
-# handles all the special cases is not worth it for a single target program. 
-#
 #  
 
 import argparse
