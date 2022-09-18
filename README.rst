@@ -162,18 +162,6 @@ You need to specify input and output directories using the `-v` flag to `docker 
 Development
 -----------
 
-Create initial flags.json file using the utility script provided:
-
-.. code:: bash
-
-    python ./prepare_flags.py
-
-Edit the resulting flags.json to match the target program (in particular, check defaults and types):
-
-.. code:: bash 
-
-    vi flags.json 
-
 Build the Docker container:
 
 .. code:: bash

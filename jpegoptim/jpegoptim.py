@@ -128,8 +128,6 @@ class Jpegoptim(ChrisApp):
         Define the CLI arguments accepted by this plugin app.
         Use self.add_argument to specify a new app argument.
         """
-        # self.add_argument("--max", type=int, help='Maximum image quality, valid values are 0-100', dest='maxquality', optional=True, default=100)
-
         global flags
         with open('flags.json') as fd:
             flags = json.load(fd)
@@ -137,8 +135,6 @@ class Jpegoptim(ChrisApp):
         for f,v in flags.items():
             helpmsg = v['help'].replace("%", "")
             flag = "--"+f
-            # if v['type'] != 'bool':
-            #     self.add_argument(flag, type=eval(v['type']), help=v['help'], dest=f, optional=True, default=v['default'])
             if v['type'] == 'int':
                 self.add_argument(flag, type=int,  help=helpmsg, dest=f, optional=True, default=v['default'])
             elif v['type'] == 'str':
@@ -152,7 +148,7 @@ class Jpegoptim(ChrisApp):
         """
         print(Gstr_title)
         print('Version: %s' % self.get_version())
-        print("Optimizing all JPEGs in %s; resulting image can be found in %s" % (options.inputdir, options.outputdir))
+        print("Optimizing all JPEGs in %s; resulting images can be found in %s" % (options.inputdir, options.outputdir))
 
         global flags
         if flags == None : 
@@ -161,14 +157,6 @@ class Jpegoptim(ChrisApp):
 
         cmdline = ['/usr/bin/jpegoptim', "--dest={}".format(options.outputdir)]
         for k, v in options.__dict__.items():
-
-            # Add option to command line if it is not default
-            # if (k == 'max' and v != 100) or (k == 'size' and v != '100%'):
-            #     option = "--{}={}".format(k, v)
-            #     cmdline.append(option)
-            # elif isinstance(v, bool) and v:
-            #     option = "--{}".format(k)
-            #     cmdline.append(option)
 
             try:
                 default = flags[k]['default']

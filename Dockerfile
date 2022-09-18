@@ -22,6 +22,17 @@
 #
 
 FROM python:3.9.1-slim-buster
+
+RUN apt-get update -y && \
+    apt-get install -y jpegoptim
+
+WORKDIR /tmp/flags
+
+COPY ./prepare_flags.py . 
+
+RUN python prepare_flags.py 
+
+FROM python:3.9.1-slim-buster
 LABEL maintainer="Benny Rochwerger <brochwer@redhat.com>"
 
 WORKDIR /usr/local/src
@@ -33,7 +44,7 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # Copy flags.json explicitly, so if the file wasn't generated the build will fail
-COPY flags.json . 
+COPY --from=0 /tmp/flags/flags.json . 
 
 COPY . .
 RUN pip install .
