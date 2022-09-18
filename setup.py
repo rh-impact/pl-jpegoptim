@@ -6,12 +6,12 @@ with open(path.join(path.dirname(path.abspath(__file__)), 'README.rst')) as f:
 
 setup(
     name             = 'jpegoptim',
-    version          = '0.1',
-    description      = 'An app to ...',
+    version          = '1.5.0', # Match jpegoptim version 
+    description      = 'An app to optimize/compress JPEG/JFIF files',
     long_description = readme,
     author           = 'Benny Rochwerger',
     author_email     = 'brochwer@redhat.com',
-    url              = 'http://wiki',
+    url              = 'https://github.com/tjko/jpegoptim',
     packages         = ['jpegoptim'],
     install_requires = ['chrisapp'],
     test_suite       = 'nose.collector',
