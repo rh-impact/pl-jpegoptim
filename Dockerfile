@@ -26,6 +26,9 @@ LABEL maintainer="Benny Rochwerger <brochwer@redhat.com>"
 
 WORKDIR /usr/local/src
 
+RUN apt-get update -y && \
+    apt-get install -y jpegoptim
+
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
