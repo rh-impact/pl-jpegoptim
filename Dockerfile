@@ -29,6 +29,9 @@ WORKDIR /usr/local/src
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
+# Copy flags.json explicitly, so if the file wasn't generated the build will fail
+COPY flags.json . 
+
 COPY . .
 RUN pip install .
 
