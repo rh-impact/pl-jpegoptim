@@ -150,28 +150,33 @@ class Jpegoptim(ChrisApp):
         print('Version: %s' % self.get_version())
         print("Optimizing all JPEGs in %s; resulting images can be found in %s" % (options.inputdir, options.outputdir))
 
-        global flags
-        if flags == None : 
-            with open('flags.json') as fd:
-                flags = json.load(fd)
+        try:
+            global flags
+            if flags == None : 
+                with open('flags.json') as fd:
+                    flags = json.load(fd)
 
-        cmdline = ['/usr/bin/jpegoptim', "--dest={}".format(options.outputdir)]
-        for k, v in options.__dict__.items():
+            cmdline = ['/usr/bin/jpegoptim', "--dest={}".format(options.outputdir)]
 
-            try:
-                default = flags[k]['default']
-                if v != default:
-                    if isinstance(v,bool) :
-                        option = "--{}".format(k)
-                    else:
-                        option = "--{}={}".format(k, v)
-                    cmdline.append(option)
-            except:
-                continue
+            for k, v in options.__dict__.items():
 
-        for  image in os.listdir(options.inputdir):
-            image_fullpath = os.path.join(options.inputdir, image)
-            subprocess.run(cmdline + [image_fullpath], check=True)
+                try:
+                    default = flags[k]['default']
+                    if v != default:
+                        if isinstance(v,bool) :
+                            option = "--{}".format(k)
+                        else:
+                            option = "--{}={}".format(k, v)
+                        cmdline.append(option)
+                except:
+                    continue
+
+            for  image in os.listdir(options.inputdir):
+                image_fullpath = os.path.join(options.inputdir, image)
+                subprocess.run(cmdline + [image_fullpath], check=True)
+
+        except FileNotFoundError:
+            print("Input directory ({}) not found".format(options.inputdir))
 
     def show_man_page(self):
         """
